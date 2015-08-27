@@ -4,20 +4,24 @@
     <title>Object Dance Party</title>
     <link rel="stylesheet" type="text/css" href="styles.css" />
     <script src="lib/jquery.js"></script>
+    <script src="lib/jQueryRotate.js"></script>
     <script src="src/dancer.js"></script>
     <script src="src/blinkyDancer.js"></script>
     <script src="src/coder.js"></script>
   </head>
   <body>
+    <audio class="music" pause>
+      <source src="assets/jitterbug.mp3" type="audio/mpeg">Your browser does not support the audio element.
+    </audio>
     <div class="topbar">
       <span class="title">object dance party</span>
 <!--       <a href="#" class="addDancerButton" data-dancer-maker-function-name="BlinkyDancer">add a blinky dancer</a>    </div> -->
-      <a href="#" class="button addCoderButton" data-dancer-maker-function-name="Coder">add coder</a>    
-      <a href="#" class="button addAllCodersButton" data-dancer-maker-function-name="Coder">add all coders</a> 
-      <a href="#" class="button crazyButton" data-dancer-maker-function-name="Coder">everyone goes crazy</a>   
-      <a href="#" class="button lineUpButton" data-dancer-maker-function-name="Coder">everyone lines up</a>   
-      <a href="#" class="button removeCoderButton" data-dancer-maker-function-name="Coder">remove coder</a>      
-      <a href="#" class="button removeAllCodersButton" data-dancer-maker-function-name="Coder">remove all coders</a>      
+      <a href="#" class="button addCoderButton" data-dancer-maker-function-name="Coder">Add a Coder</a>    
+      <a href="#" class="button addAllCodersButton" data-dancer-maker-function-name="Coder">Hurry! It's almost 9:00am!</a> 
+      <a href="#" class="button crazyButton" data-dancer-maker-function-name="Coder">There's a bug!</a>   
+      <a href="#" class="button lineUpButton" data-dancer-maker-function-name="Coder">Fred's coming!</a>   
+      <a href="#" class="button removeCoderButton" data-dancer-maker-function-name="Coder">Remove a Coder</a>      
+      <a href="#" class="button removeAllCodersButton" data-dancer-maker-function-name="Coder">It's 8:00pm! Time to sleep!</a>      
     </div>
     <script src="src/init.js"></script>
 

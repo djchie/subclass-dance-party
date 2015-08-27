@@ -13,14 +13,14 @@ $(document).ready(function(){
     ["andrewn", "brandonb", "brianl", "sebc", "robertf", "yilinx"],
   ];
 
-  $('body').append($('<span class="computerTable1"></span>'));
-  $('body').append($('<span class="computerTable2"></span>'));
-  $('body').append($('<span class="computerTable3"></span>'));
-  $('body').append($('<span class="computerTable4"></span>'));
+  $('body').append($('<div class="longComputerTable computerTable1"></div>'));
+  $('body').append($('<div class="shortComputerTable computerTable2"></div>'));
+  $('body').append($('<div class="shortComputerTable computerTable3"></div>'));
+  $('body').append($('<div class="longComputerTable computerTable4"></div>'));
 
   for (var i = 0; i < names.length; i++) {
     for (var j = 0; j < names[i].length; j++) {
-      var coder = new Coder($('body').height(), $('body').width()/2, Math.random()*1000, names[i][j], i, j);
+      var coder = new Coder($('body').height(), $('body').width()/2, (Math.random()*1000 + 300), names[i][j], i, j);
       absent.push(coder);
     }
   }
@@ -29,11 +29,13 @@ $(document).ready(function(){
     var randomIndex = Math.floor(array.length * Math.random());
     var currentCoder = array.splice(randomIndex, 1)[0];
     $('body').append(currentCoder.$node);
+    currentCoder.step();
     currentCoder.moveToInitialChair();
     seated.push(currentCoder);
   }
 
   $(".addCoderButton").on("click", function(event){
+    $('.music').get(0).load();
     // Make a coder with a random position
     if (absent.length > 0) {
       addCoder(absent);
@@ -41,6 +43,7 @@ $(document).ready(function(){
   });
 
   $(".addAllCodersButton").on("click", function(event){
+    $('.music').get(0).load();
     // Make a coder with a random position
     if (absent.length > 0) {
       var addAbsentInterval = setInterval(function() {
@@ -61,6 +64,7 @@ $(document).ready(function(){
   });
 
   $(".lineUpButton").on("click", function(event){
+    $('.music').get(0).load();
     var present = seated.concat(unseated);
     present.forEach(function(coder, i){
       coder.lineUp(i, present.length);
@@ -72,7 +76,8 @@ $(document).ready(function(){
   });
 
   $(".crazyButton").on("click", function(event){
-
+    $('.music').get(0).play();
+    // Do crazy things
   });
 
   var removeCoder = function(array){
@@ -91,6 +96,7 @@ $(document).ready(function(){
   }
 
   $(".removeCoderButton").on("click", function(event){
+    $('.music').get(0).load();
     var present = seated.concat(unseated);
     if (present.length > 0) {
       removeCoder(present);
@@ -98,6 +104,7 @@ $(document).ready(function(){
   });
 
   $(".removeAllCodersButton").on("click", function(event){
+    $('.music').get(0).load();
     if (seated.length > 0) {
       var removeSeatedInterval = setInterval(function() {
         removeCoder(seated);
