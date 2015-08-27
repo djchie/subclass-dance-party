@@ -9,7 +9,7 @@ body{
 body, a:link, a:visited, a:active{
   color: lightblue;
 }
-.title, .addDancerButton{
+.title, .button{
   padding:5px 12px;
   float:right;
 }
@@ -20,8 +20,32 @@ body, a:link, a:visited, a:active{
 .title{
   background-color: #777;
 }
-.dancer{
+.coder{
   border:10px solid red;
   border-radius:10px;
+  position:absolute;
+}
+.computerTable1{
+  height: 70%;
+  left: 20%;
+  border:10px solid blue;
+  position:absolute;
+}
+.computerTable2{
+  height: 47%;
+  left: 40%;
+  border:10px solid green;
+  position:absolute;
+}
+.computerTable3{
+  height: 47%;
+  left: 60%;
+  border:10px solid yellow;
+  position:absolute;
+}
+.computerTable4{
+  height: 70%;
+  left: 80%;
+  border:10px solid white;
   position:absolute;
 }

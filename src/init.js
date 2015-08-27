@@ -1,33 +1,130 @@
 $(document).ready(function(){
-  window.dancers = [];
+  window.absent = [];
+  window.seated = [];
+  window.unseated = [];
+  window.names = [
+    ["lauraw", "amyc", "ryanw", "allant", "jordano", "zachc"],
+    ["garyy", "nirajv", "benv", "aaronn", "rodrigod", "michaels"],
+    ["naomij", "livviel", "alexm", "johnk"],
+    ["christianl", "alexh", "cynthiac", "laurak"],
+    ["phongp", "cameronm", "derrickc", "danielo"],
+    ["juanab", "michaelj", "natew", "taylorl"],
+    ["michaelw", "kylec", "benh", "benh", "briang", "antons"],
+    ["andrewn", "brandonb", "brianl", "sebc", "robertf", "yilinx"],
+  ];
 
-  $(".addDancerButton").on("click", function(event){
-    /* This function sets up the click handlers for the create-dancer
-     * buttons on dancefloor.html. You should only need to make one small change to it.
-     * As long as the "data-dancer-maker-function-name" attribute of a
-     * class="addDancerButton" DOM node matches one of the names of the
-     * maker functions available in the global scope, clicking that node
-     * will call the function to make the dancer.
-     */
+  $('body').append($('<span class="computerTable1"></span>'));
+  $('body').append($('<span class="computerTable2"></span>'));
+  $('body').append($('<span class="computerTable3"></span>'));
+  $('body').append($('<span class="computerTable4"></span>'));
 
-    /* dancerMakerFunctionName is a string which must match
-     * one of the dancer maker functions available in global scope.
-     * A new object of the given type will be created and added
-     * to the stage.
-     */
-    var dancerMakerFunctionName = $(this).data("dancer-maker-function-name");
+  for (var i = 0; i < names.length; i++) {
+    for (var j = 0; j < names[i].length; j++) {
+      var coder = new Coder($('body').height(), $('body').width()/2, Math.random()*1000, names[i][j], i, j);
+      absent.push(coder);
+    }
+  }
 
-    // get the maker function for the kind of dancer we're supposed to make
-    var dancerMakerFunction = window[dancerMakerFunctionName];
+  var addCoder = function(array) {
+    var randomIndex = Math.floor(array.length * Math.random());
+    var currentCoder = array.splice(randomIndex, 1)[0];
+    $('body').append(currentCoder.$node);
+    currentCoder.moveToInitialChair();
+    seated.push(currentCoder);
+  }
 
-    // make a dancer with a random position
-
-    var dancer = dancerMakerFunction(
-      $("body").height() * Math.random(),
-      $("body").width() * Math.random(),
-      Math.random() * 1000
-    );
-    $('body').append(dancer.$node);
+  $(".addCoderButton").on("click", function(event){
+    // Make a coder with a random position
+    if (absent.length > 0) {
+      addCoder(absent);
+    }
   });
+
+  $(".addAllCodersButton").on("click", function(event){
+    // Make a coder with a random position
+    if (absent.length > 0) {
+      var addAbsentInterval = setInterval(function() {
+        addCoder(absent);
+        if (absent.length === 0) {
+          clearInterval(addAbsentInterval);
+        }
+      }, 100);
+    }
+    if (unseated.length > 0) {
+      var addUnseatedInterval = setInterval(function() {
+        addCoder(unseated);
+        if (unseated.length === 0) {
+          clearInterval(addUnseatedInterval);
+        }
+      }, 100);
+    }
+  });
+
+  $(".lineUpButton").on("click", function(event){
+    var present = seated.concat(unseated);
+    present.forEach(function(coder, i){
+      coder.lineUp(i, present.length);
+    });
+    seated.forEach(function(coder){
+      unseated.push(coder);
+    });
+    seated = [];
+  });
+
+  $(".crazyButton").on("click", function(event){
+
+  });
+
+  var removeCoder = function(array){
+    var randomIndex = Math.floor(array.length * Math.random());
+    var currentCoder = array.splice(randomIndex, 1)[0];
+    currentCoder.remove();
+    absent.push(currentCoder);
+    var isInUnseated = unseated.indexOf(currentCoder);
+    if (isInUnseated !== -1) {
+      unseated.splice(isInUnseated, 1);
+    }
+    var isInSeated = seated.indexOf(currentCoder);
+    if (isInSeated !== -1) {
+      seated.splice(isInSeated, 1);
+    }
+  }
+
+  $(".removeCoderButton").on("click", function(event){
+    var present = seated.concat(unseated);
+    if (present.length > 0) {
+      removeCoder(present);
+    }
+  });
+
+  $(".removeAllCodersButton").on("click", function(event){
+    if (seated.length > 0) {
+      var removeSeatedInterval = setInterval(function() {
+        removeCoder(seated);
+        if (seated.length === 0) {
+          clearInterval(removeSeatedInterval);
+        }
+      }, 100);
+    }
+    if (unseated.length > 0) {
+      var removeUnseatedInterval = setInterval(function() {
+        removeCoder(unseated);
+        if (unseated.length === 0) {
+          clearInterval(removeUnseatedInterval);
+        }
+      }, 100);
+    }
+  });
+
+  // $(document).on("mouseover", ".coder", function(event){
+  //   var id = $(this).attr('id');
+  //   $(this).append('<div class="coderName">' + id + '</div>');
+  // });
+
+  // $(document).on("mouseout", ".coder", function(event){
+  //   var id = $(this).attr('id');
+  //   $(this).append('<span class="coderName">' + id + '</span>');
+  // });
+
 });
 
