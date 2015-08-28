@@ -21,18 +21,45 @@ body, a:link, a:visited, a:active{
 .title{
   background-color: #777;
 }
+.fred {
+  top: 75%;
+  height: 25%;
+  left: -10%;
+  position: absolute;
+  z-index: 10;
+}
+.fred img{
+  display: inline;
+  height: 100%;
+  width: auto;
+}
+
 .coder{
+  position:absolute;
   width: 60px;
   height: 85px;
-  /*border:10px solid red;*/
-  /*border-radius:10px;*/
-  position:absolute;
 }
+
 .coder img{
   display: inline;
   height: 100%;
   width: auto;
 }
+.coderName{
+  text-align: center;
+}
+/*.warning{
+  left: 40%;
+  vertical-align: center;
+  text-align: center;
+  position:absolute;
+}
+.warning img{
+  display: inline;
+  height: 100%;
+  width: auto;
+}*/
+
 .longComputerTable{
   height: 70%;
   width: 3.5%;

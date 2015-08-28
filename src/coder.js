@@ -1,13 +1,16 @@
 var Coder = function(top, left, timeBetweenSteps, id, row, position){
   Dancer.call(this, top, left, timeBetweenSteps);
+  this.id = id;
   this.$node.attr('id', id);
   this.$node.append('<img src="assets/' + id + '.png">');
+  this.$node.append('<div class="coderName">' + id + '</div>');
+  this.$node.children('.coderName').hide();
   this.row = row;
   this.position = position;
   this.positionIncrement = this.getPositionIncrement();
   this.loc = this.locationCalc(this.row, this.position);
   this.rotationValue = 20;
-  this.isNormal = true;
+  // this.isNormal = true;
 };
 
 Coder.prototype = Object.create(Dancer.prototype);
@@ -17,7 +20,7 @@ Coder.prototype.constructor = Coder;
 Coder.prototype.step = function() {
   // if crazy, reset values to normal (have everyone sit) and rotationValues to 20
   Dancer.prototype.step.call(this);
-  if (this.isNormal) {
+  // if (this.isNormal) {
     // this.$node.toggle();
     if (this.rotationValue > 0) {
       this.rotationValue -= 40;
@@ -27,16 +30,24 @@ Coder.prototype.step = function() {
     this.$node.rotate({
       animateTo: this.rotationValue
     });
-  } else {
-    // make the dance for when going crazy
-  }
+  // } else {
+  //   // make the dance for when going crazy
+  // }
 };
 
-Coder.prototype.toggle = function() {
-  if (this.isNormal) {
+// Coder.prototype.toggle = function() {
+//   if (this.isNormal) {
+//     this.isNormal = false;
+//     this.rotationValue = 0;
+//     this.$node.rotate({
+//       animateTo: this.rotationValue
+//     });
 
-  }
-};
+//   } else {
+//     this.isNormal = true;
+//     this.rotationValue = 20;
+//   }
+// };
 
 Coder.prototype.locationCalc = function(row, position) {
   var top = ((position*this.positionIncrement) + 4).toString()+'%';
@@ -59,6 +70,14 @@ Coder.prototype.moveToInitialChair = function() {
   }).animate({
     top: this.loc.top
   });
+}
+
+// FINISH THIS
+Coder.prototype.moveToPosition = function(top, left, callback) {
+  this.$node.animate({
+    top: top,
+    left: left
+  }, 300, callback);
 }
 
 Coder.prototype.lineUp = function(index, n) {
